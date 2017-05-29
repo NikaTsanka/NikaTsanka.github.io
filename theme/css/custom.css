@@ -7,12 +7,13 @@ body {
 }
 
 .intro {
-    background: #32B4AA;
-    margin-top: 30px !important;
+    background: #C70039;
+    margin-top: 10px !important;
     margin-bottom: 60px !important;
     border-bottom: 1px solid #eee;
-    padding: 100px !important;
-    color: rgba(255, 255, 255, 0.8);
+    /*padding: 100px !important;*/
+    /*color: rgba(255, 255, 255, 0.8);*/
+    color: snow;
 }
 
 .articles {
@@ -49,6 +50,10 @@ body {
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
+.ui.menu .item {
+    color: #C70039;
+}
+
 .overlay.fixed .menu {
     left: 800px;
 }
@@ -59,20 +64,32 @@ body {
 .text.container .right.floated.image {
     margin: 2em -4em 2em 2em;
 }
-
+/*
 .ui.footer.segment {
-    margin: 5em 0em 0em;
-    padding: 5em 0em;
+    margin: 4em 0em 0em;
+    padding: 1em 0em;
 }
+*/
 
 .article-top {
 	margin-top: 170px !important;
 	padding-bottom: 50px !important;
 }
 
+.article-top-up {
+	margin-top: 100px !important;
+	padding-bottom: 20px !important;
+}
+
 .article-huge {
     font-size: 4em !important;
 }
+
+
+.article-large {
+    font-size: 2em !important;
+}
+
 
 .chevron:hover {
     transform: scale(1.5);

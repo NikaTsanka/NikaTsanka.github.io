@@ -1,8 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>GammaCode</title><link href="https://nikatsanka.github.io/" rel="alternate"></link><link href="https://nikatsanka.github.io/feeds/all.atom.xml" rel="self"></link><id>https://nikatsanka.github.io/</id><updated>2017-06-12T00:00:00-04:00</updated><entry><title>Fourier Transform by Example</title><link href="https://nikatsanka.github.io/fourier-transform-by-example.html" rel="alternate"></link><published>2017-06-12T00:00:00-04:00</published><updated>2017-06-12T00:00:00-04:00</updated><author><name>Nika Tsankashvili</name></author><id>tag:nikatsanka.github.io,2017-06-12:/fourier-transform-by-example.html</id><summary type="html">&lt;p&gt;In this short tutorial I will explain how to computer Discrete Fourier Transform by Example. The reason is simple. It is always easier to understand something new by actually doing, so that's what we will be doing here. &lt;/p&gt;
-&lt;p&gt;I will be using image transformations as an example. So let's jump …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this short tutorial I will explain how to computer Discrete Fourier Transform by Example. The reason is simple. It is always easier to understand something new by actually doing, so that's what we will be doing here. &lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>GammaCode</title><link href="https://nikatsanka.github.io/" rel="alternate"></link><link href="https://nikatsanka.github.io/feeds/all.atom.xml" rel="self"></link><id>https://nikatsanka.github.io/</id><updated>2017-06-12T00:00:00-04:00</updated><entry><title>Fourier Transform by Example</title><link href="https://nikatsanka.github.io/fourier-transform-by-example.html" rel="alternate"></link><published>2017-06-12T00:00:00-04:00</published><updated>2017-06-12T00:00:00-04:00</updated><author><name>Nika Tsankashvili</name></author><id>tag:nikatsanka.github.io,2017-06-12:/fourier-transform-by-example.html</id><summary type="html">&lt;p&gt;Short version for index and feeds&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this short tutorial I will explain how to computer Discrete Fourier Transform by Example. The reason is simple. It is always easier to understand something new by actually doing, so that's what we will be doing here. &lt;/p&gt;
 &lt;p&gt;I will be using image transformations as an example. So let's jump into it. &lt;/p&gt;
 &lt;p&gt;I'm not going to go into much details of what Fourier transform is but rather focus more on actual examples. Here is a really good place to start &lt;a href="https://www.youtube.com/watch?v=mkGsMWi_j4Q"&gt;Discrete Fourier Transform - Simple Step by Step&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;We know that Discrete Fourier Transform (DFT) goes from spatial(time) domain to frequency domain and vice versa. Going from spatial domain to frequency domain is called forward DFT and going from the frequency domain to spatial domain is called inverse DFT.&lt;/p&gt;
 &lt;h2&gt;Forward Discrete Fourier Transform&lt;/h2&gt;
-&lt;p&gt;&lt;img alt="DFT" src="/images/d-fourier-f.jpg"&gt;&lt;/p&gt;</content></entry><entry><title>My First Blog</title><link href="https://nikatsanka.github.io/my-first-blog.html" rel="alternate"></link><published>2015-11-23T10:20:00-05:00</published><updated>2015-11-23T10:20:00-05:00</updated><author><name>Nika Tsankashvili</name></author><id>tag:nikatsanka.github.io,2015-11-23:/my-first-blog.html</id><summary type="html">&lt;p&gt;Hello world.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Hello world.&lt;/p&gt;</content></entry></feed>
+&lt;p&gt;&lt;img alt="DFT" src="/images/d-fourier-f.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;Let's consider a list of real numbers: 36, 22, 45, 15. Thus, we have F = 36, 22, 45, 15. N = 4. u = (0,1,2,3). x = (0,1,2,3). Now let's compute the coefficients for these numbers.&lt;/p&gt;
+&lt;p&gt;So we have F(u) = u*e^(-i*2*π*u*x/4)&lt;/p&gt;
+&lt;p&gt;Since x = 0 we get the same number for all numbers.&lt;/p&gt;
+&lt;p&gt;x = 0: F(0) = (36*e^(-i*2*π*0*0/4) + 22*e^(-i*2*π*0*1/4) + 45*e^(-i*2*π*0*2/4) + 15*e^(-i*2*π*0*3/4)) / 4 = 29.5 + 0i&lt;/p&gt;
+&lt;p&gt;x = 1: F(1) = 36*e^(-i*2*π*1*0/4) + 22*e^(-i*2*π*1*1/4) + 45*e^(-i*2*π*1*2/4) + 15*e^(-i*2*π*1*3/4) = 36 + 22*cos(-π/2) - 22*i*sin(-π/2) + 45*cos(-π) - 45*i*sin(-π) + 15*cos(-π*3/2) - 15*i*sin(-π*3/2) = 36 + 0 - 45 + 0 + (0i - 22.00i + 0i + 15.00i) = -9/4 + (-7i/4) = -2.25 - 1.75i &lt;/p&gt;
+&lt;p&gt;x = 2: F(2) = 36*e^(-i*2*π*2*0/4) + 22*e^(-i*2*π*2*1/4) + 45*e^(-i*2*π*2*2/4) + 15*e^(-i*2*π*2*3/4) = 36 + 22*cos(-π) - 22*i*sin(-π) + 45*cos(-π*2) - 45*i*sin(-π*2) + 15*cos(-π*3) - 15*i*sin(-π*3) = 36 - 22. + 45. - 15. + (0i + 0i + 0i + 0i) = 44/4 + (0i/4) = 11 + 0i&lt;/p&gt;
+&lt;p&gt;x = 3: F(3) = 36*e^(-i*2*π*3*0/4) + 22*e^(-i*2*π*3*1/4) + 45*e^(-i*2*π*3*2/4) + 15*e^(-i*2*π*3*3/4) = 36 + 22*cos(-π*3/2) - 22*i*sin(-π*3/2) + 45*cos(-π*3) - 45*i*sin(-π*3) + 15*cos(-π*9/2) - 15*i*sin(-π*9/2) = 36 + 0 - 45 - 0 + (0i + 22.00i - 0i - 15.00i) = -9/4 + (7i/4) = -2.25 + 1.75i &lt;/p&gt;
+&lt;p&gt;At this point you can take these coefficients and perform your operations such as filtering, convolution or what have you. &lt;/p&gt;
+&lt;p&gt;Also now that we have the coefficients we can express them in terms of magnitude and phase. &lt;/p&gt;
+&lt;h3&gt;Magnitude&lt;/h3&gt;
+&lt;p&gt;&lt;img alt="FS" src="/images/spectrum.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;Magnitude tells &lt;strong&gt;how much&lt;/strong&gt; of a certain frequency component is present. &lt;/p&gt;
+&lt;p&gt;F(0) = sqrt(29.5^2 + 0^2) = 29.50&lt;/p&gt;
+&lt;p&gt;F(1) = sqrt(-2.25^2 - 1.75^2) = 2.85&lt;/p&gt;
+&lt;p&gt;F(2) = sqrt(11^2 + 0^2) = 11.00&lt;/p&gt;
+&lt;p&gt;F(3) = sqrt(-2.25^2 + 1.75^2) = 2.85&lt;/p&gt;
+&lt;h3&gt;Phase&lt;/h3&gt;
+&lt;p&gt;&lt;img alt="FP" src="/images/phase.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;Phase tells &lt;strong&gt;where&lt;/strong&gt; the frequency component is in the image.&lt;/p&gt;
+&lt;p&gt;Φ(0) = atan2(0 / 29.5) = 0&lt;/p&gt;
+&lt;p&gt;Φ(1) = atan2(-1.75 / -2.25) = -2.48&lt;/p&gt;
+&lt;p&gt;Φ(2) = atan2(0 / 11) = 0&lt;/p&gt;
+&lt;p&gt;Φ(3) = atan2(1.75 / -2.25) = 2.48&lt;/p&gt;
+&lt;h2&gt;Inverse Discrete Fourier Transform&lt;/h2&gt;
+&lt;p&gt;&lt;img alt="DFT" src="/images/d-fourier-i.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;After performing some operations we need to do the inverse.&lt;/p&gt;
+&lt;p&gt;Now let's reconstruct the list from the coefficients that we just computed.&lt;/p&gt;
+&lt;p&gt;f(0) = (29.5 + 0i)*e^(i*2*π*0*0/4) + (-2.25 - 1.75i)*e^(i*2*π*0*1/4) + (11 + 0i)*e^(i*2*π*0*2/4) + (-2.25 + 1.75i)*e^(i*2*π*0*3/4) = 29.5 - 2.25 + 11 - 2.25 = 36.00&lt;/p&gt;
+&lt;p&gt;f(1) = (29.5 + 0i)*e^(i*2*π*1*0/4) + (-2.25 - 1.75i)*e^(i*2*π*1*1/4) + (11 + 0i)*e^(i*2*π*1*2/4) + (-2.25 + 1.75i)*e^(i*2*π*1*3/4) = 29.5 + (-2.25*cos(π/2) + 1.75*sin(π/2) - i*(2.25*sin(π/2) - 1.75*cos(π/2))) + (11.00*cos(π) - 0*sin(π) + i*(11.00*sin(π) + 0*cos(π))) + (-2.25*cos(π*3/2) - 1.75*sin(π*3/2) + i*(2.25*sin(π*3/2) + 1.75*cos(π*3/2))) = 29.5 + 1.75 - 11 + 1.75 = 22.00&lt;/p&gt;
+&lt;p&gt;f(2) = (29.5 + 0i)*e^(i*2*π*2*0/4) + (-2.25 - 1.75i)*e^(i*2*π*2*1/4) + (11 + 0i)*e^(i*2*π*2*2/4) + (-2.25 + 1.75i)*e^(i*2*π*2*3/4) = 29.5 + (-2.25*cos(π) + 1.75*sin(π) - i*(2.25*sin(π) - 1.75*cos(π))) + (11.00*cos(π*2) - 0*sin(π*2) + i*(11.00*sin(π*2) + 0*cos(π*2))) + (-2.25*cos(π*3) - 1.75*sin(π*3) + i*(2.25*sin(π*3) + 1.75*cos(π*3))) = 29.5 + 2.25 + 11 + 2.25 = 45.00&lt;/p&gt;
+&lt;p&gt;f(3) = (29.5 + 0i)*e^(i*2*π*3*0/4) + (-2.25 - 1.75i)*e^(i*2*π*3*1/4) + (11 + 0i)*e^(i*2*π*3*2/4) + (-2.25 + 1.75i)*e^(i*2*π*3*3/4) = 29.5 + (-2.25*cos(π*3/2) + 1.75*sin(π*3/2) - i*(2.25*sin(π*3/2 - 1.75*cos(π*3/2))) + (11.00*cos(π*3) - 0*sin(π*3) + i*(11.00*sin(π*3) + 0*cos(π*3))) + (-2.25*cos(π*9/2) - 1.75*sin(π*9/2) + i*(2.25*sin(π*9/2) + 1.75*cos(π*9/2))) = 29.50 - 1.75 - 11 - 1.75 = 15.00&lt;/p&gt;
+&lt;p&gt;So we got 36, 22, 45, 15. We are getting the same numbers because we didn't make any changes in the frequency domain. &lt;/p&gt;
+&lt;p&gt;Now let's write a simple python script to compute Discrete Fourier Transforms. Why? Because sometimes it's easier to understand what we are actually doing by looking at the code.&lt;/p&gt;
+&lt;hr&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;math&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;matplotlib&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;pyplot&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;plt&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Let&amp;#39;s initialize two lists with the real&lt;/span&gt;
+&lt;span class="c1"&gt;# and imaginary numbers.&lt;/span&gt;
+&lt;span class="n"&gt;real_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;36&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;22&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;45&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;15&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;imag_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+&lt;span class="n"&gt;results_f&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;  &lt;span class="c1"&gt;# Forward&lt;/span&gt;
+&lt;span class="n"&gt;results_i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;  &lt;span class="c1"&gt;# Inverse&lt;/span&gt;
+
+&lt;span class="n"&gt;N&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;real_list&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Forward DFT&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;real&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;imag&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;cosine&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;  &lt;span class="n"&gt;math&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cos&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;2.&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;math&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;sine&lt;/span&gt;   &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;math&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sin&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;2.&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;math&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+        &lt;span class="n"&gt;real&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;real_list&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;cosine&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;imag_list&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;sine&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;imag&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;real_list&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;sine&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;imag_list&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;cosine&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;real&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;imag&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="n"&gt;results_f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Coefficients&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Coefficients:&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;({:.2f}, {:.2f}),&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;results_f&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;results_f&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Magnitude&lt;/span&gt;
+&lt;span class="n"&gt;mag&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s1"&gt;Magnitude:&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;mag_val&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;math&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sqrt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;results_f&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;results_f&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;
+                        &lt;span class="n"&gt;results_f&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;results_f&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;{:.2f},&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mag_val&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="n"&gt;mag&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mag_val&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Phase&lt;/span&gt;
+&lt;span class="n"&gt;pha&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s1"&gt;Phase:&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;pha_val&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;math&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;atan2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;results_f&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;results_f&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;{:.2f},&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pha_val&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="n"&gt;pha&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pha_val&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Now let&amp;#39;s plot these two&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;subplot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;121&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mag&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;bo&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Magnitude&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;subplot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;122&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pha&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;g*&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Phase&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;savefig&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;mag-phase.png&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Now let&amp;#39;s go back&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Inverse&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;real&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;imag&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;cosine&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;math&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cos&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;2.&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;math&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;sine&lt;/span&gt;   &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;math&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sin&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;2.&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;math&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+        &lt;span class="n"&gt;real&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;results_f&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;cosine&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;results_f&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;sine&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;imag&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;results_f&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;sine&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;results_f&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;cosine&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;real&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;imag&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="n"&gt;results_i&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Our List&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s1"&gt;Our List:&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;({:.2f}, {:.2f}),&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;results_i&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="nb"&gt;abs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;results_i&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;])))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr&gt;
+&lt;p&gt;Output:&lt;/p&gt;
+&lt;p&gt;Coefficients:
+(29.50, 0.00),
+(-2.25, -1.75),
+(11.00, 0.00),
+(-2.25, 1.75),&lt;/p&gt;
+&lt;p&gt;Magnitude:
+29.50,
+2.85,
+11.00,
+2.85,&lt;/p&gt;
+&lt;p&gt;Phase:
+0.00,
+-2.48,
+0.00,
+2.48,&lt;/p&gt;
+&lt;p&gt;Our List:
+(36.00, 0.00),
+(22.00, 0.00),
+(45.00, 0.00),
+(15.00, 0.00),&lt;/p&gt;
+&lt;p&gt;&lt;img alt="MPP" src="/images/mag-phase.png"&gt;&lt;/p&gt;
+&lt;p&gt;These don't look good because we didn't have a lot of numbers.&lt;/p&gt;
+&lt;p&gt;And that's it. Next time I will explain how to do &lt;strong&gt;Fast Fourier Transform&lt;/strong&gt; which is super cool. &lt;/p&gt;
+&lt;p&gt;If you have any questions or I messed up somewhere, please emails me at &lt;strong&gt;nikatsanka@gmail.com&lt;/strong&gt;&lt;/p&gt;</content></entry></feed>

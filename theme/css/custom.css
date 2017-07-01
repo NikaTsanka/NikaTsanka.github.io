@@ -1,6 +1,7 @@
 body {
     background-color: #FFFFFF;
 }
+
 .main.container {
     margin-top: 8em;
 	min-height: 600px;
@@ -57,6 +58,14 @@ body {
 .overlay.fixed .menu {
     left: 800px;
 }
+
+.ui {
+    font-size: 1.1em;
+}
+
+/*.ui.text {
+    font-size: 1em;
+}*/
 
 .text.container .left.floated.image {
     margin: 2em 2em 2em -4em;

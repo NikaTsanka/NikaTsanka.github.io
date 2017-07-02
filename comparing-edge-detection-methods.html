@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Standard Meta -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <!-- Site Properities -->
+    <title>Comparing Edge Detection Methods</title>
+
+    <meta name="description" content="">
+
+    <meta property="og:site_name" content="GammaCode" />
+    <meta property="og:locale" content="en" />
+
+<meta property="og:title" content="Comparing Edge Detection Methods" />
+<meta property="og:url" content="comparing-edge-detection-methods.html"/>
+<meta property="og:description" content=" " />
+<meta property="og:type" content="article" />
+<meta property="og:author" content="Nika Tsankashvili" />
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GammaCode">
+    <meta name="twitter:description" content="">
+    <!--meta name="twitter:image" content=""-->
+
+    <link rel="stylesheet" type="text/css" href="https://nikatsanka.github.io/theme/css/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="https://nikatsanka.github.io/theme/css/custom.css">
+</head>
+<body>
+<div class="ui borderless fixed stackable main menu">
+    <div class="ui text container">
+        <a href="/" class="header item">
+            <!--             <img class="logo" src="https://nikatsanka.github.io/theme/images/logo.png">
+-->
+            GammaCode
+        </a>
+        <a href="/pages/about.html" class="item">About</a>
+    </div>
+</div>
+<div class="ui text container center aligned article-top">
+    <h1 class="ui header article-large">Comparing Edge Detection Methods</h1>
+</div>
+<div class="ui justified container piled segment">
+            <p>Have you ever wondered which edge detection methods are best for given images? Yeah? So am I, so let's compare them.</p>
+<p>We will be implementing some of the most commonly used methods and also using methods from OpenCV and PIL</p>
+<p>We will be comparing the following methods:</p>
+<ul>
+<li>Sobel edge detector</li>
+<li>Prewitt edge detector</li>
+<li>Laplacian edge detector</li>
+<li>Canny edge detector</li>
+</ul>
+<h2>Sobel Operator</h2>
+<p>The sobel is one of the most commonly used edge detectors. It is based on convolving the image with a small, separable, and integer valued filter in horizontal and vertical direction and is therefore relatively inexpensive in terms of computations. The Sobel edge enhancement filter has the advantage of providing differencing (which gives the edge response) and smoothing (which reduces noise) concurrently. </p>
+<p><img alt="Sobel" src="/images/sobel-mask.png"></p>
+<p>Here is a python implementation of Sobel operator</p>
+<script src="https://gist.github.com/NikaTsanka/868a33330c26e775e70b18bb96615d39.js"></script>
+
+<p>Results:</p>
+<p><img alt="dancing-spider" src="/images/dancing-spider.jpg"> 
+<img alt="dancing-spider-sobel" src="/images/dancing-spider-sobel.png"> </p>
+<p>In this example we apply the mask on the gray-scale image, however we can produce a better result by applying the mask on each RGB channel. </p>
+<script src="https://gist.github.com/NikaTsanka/067cc011b339ecb2dc86820d4a8999b7.js"></script>
+
+<p>Results: One channel(left), RGB channel(right).</p>
+<p><img alt="dancing-spider-sobel" src="/images/dancing-spider-sobel.png"> 
+<img alt="dancing-spider-sobel-rgb" src="/images/dancing-spider-sobel-rgb.png"> </p>
+<p>You can see a slight improvement but note that it's computationally more costly.</p>
+</div>
+
+    <!-- <div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+        
+        <div class="ui horizontal inverted small divided link list">
+        </div>
+    </div>
+</div>
+ -->
+    <script type="text/javascript" src="https://nikatsanka.github.io/theme/js/jquery.min.js"></script>
+    <script type="text/javascript" src="https://nikatsanka.github.io/theme/js/semantic.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/sharer.js/0.2.4/sharer.min.js"></script>
+</body>
+</html>

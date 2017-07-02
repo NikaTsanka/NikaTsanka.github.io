@@ -81,85 +81,8 @@
 <p>f(3) = (29.5 + 0i)*e^(i*2*π*3*0/4) + (-2.25 - 1.75i)*e^(i*2*π*3*1/4) + (11 + 0i)*e^(i*2*π*3*2/4) + (-2.25 + 1.75i)*e^(i*2*π*3*3/4) = 29.5 + (-2.25*cos(π*3/2) + 1.75*sin(π*3/2) - i*(2.25*sin(π*3/2 - 1.75*cos(π*3/2))) + (11.00*cos(π*3) - 0*sin(π*3) + i*(11.00*sin(π*3) + 0*cos(π*3))) + (-2.25*cos(π*9/2) - 1.75*sin(π*9/2) + i*(2.25*sin(π*9/2) + 1.75*cos(π*9/2))) = 29.50 - 1.75 - 11 - 1.75 = 15.00</p>
 <p>So we got 36, 22, 45, 15. We are getting the same numbers because we didn't make any changes in the frequency domain. </p>
 <p>Now let's write a simple python script to compute Discrete Fourier Transforms. Why? Because sometimes it's easier to understand what we are actually doing by looking at the code.</p>
-<hr>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<script src="https://gist.github.com/NikaTsanka/937eeefb284c14b2bb3c50510f9e8bdc.js"></script>
 
-<span class="c1"># Let&#39;s initialize two lists with the real</span>
-<span class="c1"># and imaginary numbers.</span>
-<span class="n">real_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">36</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
-<span class="n">imag_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-
-<span class="n">results_f</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Forward</span>
-<span class="n">results_i</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Inverse</span>
-
-<span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">real_list</span><span class="p">)</span>
-
-<span class="c1"># Forward DFT</span>
-<span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-    <span class="n">real</span> <span class="o">=</span> <span class="n">imag</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-        <span class="n">cosine</span> <span class="o">=</span>  <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">u</span> <span class="o">*</span> <span class="n">x</span><span class="o">/</span><span class="n">N</span><span class="p">)</span>
-        <span class="n">sine</span>   <span class="o">=</span> <span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">u</span> <span class="o">*</span> <span class="n">x</span><span class="o">/</span><span class="n">N</span><span class="p">)</span>
-
-        <span class="n">real</span> <span class="o">+=</span> <span class="p">(</span><span class="n">real_list</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="n">cosine</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">imag_list</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="n">sine</span><span class="p">)</span>
-        <span class="n">imag</span> <span class="o">+=</span> <span class="p">(</span><span class="n">real_list</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="n">sine</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">imag_list</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="n">cosine</span><span class="p">)</span>
-
-    <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">real</span> <span class="o">/</span> <span class="n">N</span><span class="p">,</span> <span class="n">imag</span> <span class="o">/</span> <span class="n">N</span><span class="p">]</span>
-    <span class="n">results_f</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-
-<span class="c1"># Coefficients</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Coefficients:&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;({:.2f}, {:.2f}),&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">results_f</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">results_f</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
-
-<span class="c1"># Magnitude</span>
-<span class="n">mag</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Magnitude:&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-    <span class="n">mag_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">results_f</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">results_f</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span>
-                        <span class="n">results_f</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">results_f</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
-    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{:.2f},&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mag_val</span><span class="p">))</span>
-    <span class="n">mag</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mag_val</span><span class="p">)</span>
-
-<span class="c1"># Phase</span>
-<span class="n">pha</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Phase:&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-    <span class="n">pha_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="n">results_f</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">results_f</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{:.2f},&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pha_val</span><span class="p">))</span>
-    <span class="n">pha</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pha_val</span><span class="p">)</span>
-
-<span class="c1"># Now let&#39;s plot these two</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mag</span><span class="p">,</span> <span class="s1">&#39;bo&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Magnitude&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pha</span><span class="p">,</span> <span class="s1">&#39;g*&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Phase&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;mag-phase.png&#39;</span><span class="p">)</span>
-
-<span class="c1"># Now let&#39;s go back</span>
-
-<span class="c1"># Inverse</span>
-<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-    <span class="n">real</span> <span class="o">=</span> <span class="n">imag</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-        <span class="n">cosine</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">u</span> <span class="o">*</span> <span class="n">x</span><span class="o">/</span><span class="n">N</span><span class="p">)</span>
-        <span class="n">sine</span>   <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">u</span> <span class="o">*</span> <span class="n">x</span><span class="o">/</span><span class="n">N</span><span class="p">)</span>
-
-        <span class="n">real</span> <span class="o">+=</span> <span class="p">(</span><span class="n">results_f</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">cosine</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">results_f</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">sine</span><span class="p">)</span>
-        <span class="n">imag</span> <span class="o">+=</span> <span class="p">(</span><span class="n">results_f</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">sine</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">results_f</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">cosine</span><span class="p">)</span>
-
-    <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">real</span><span class="p">,</span> <span class="n">imag</span><span class="p">]</span>
-    <span class="n">results_i</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-
-<span class="c1"># Our List</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Our List:&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;({:.2f}, {:.2f}),&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">results_i</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="nb">abs</span><span class="p">(</span><span class="n">results_i</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">1</span><span class="p">])))</span>
-</pre></div>
-
-
-<hr>
 <p>Output:</p>
 <p>Coefficients:
 (29.50, 0.00),

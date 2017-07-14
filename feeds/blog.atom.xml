@@ -23,7 +23,43 @@
 &lt;p&gt;Results: One channel(left), RGB channel(right).&lt;/p&gt;
 &lt;p&gt;&lt;img alt="dancing-spider-sobel" src="/images/dancing-spider-sobel.png"&gt; 
 &lt;img alt="dancing-spider-sobel-rgb" src="/images/dancing-spider-sobel-rgb.png"&gt; &lt;/p&gt;
-&lt;p&gt;You can see a slight improvement but note that it's computationally more costly.&lt;/p&gt;</content></entry><entry><title>Fourier Transform by Example</title><link href="https://nikatsanka.github.io/fourier-transform-by-example.html" rel="alternate"></link><published>2017-06-12T00:00:00-04:00</published><updated>2017-06-12T00:00:00-04:00</updated><author><name>Nika Tsankashvili</name></author><id>tag:nikatsanka.github.io,2017-06-12:/fourier-transform-by-example.html</id><summary type="html">&lt;p&gt;Short tutorial explaining how to computer Discrete Fourier Transform by doing all the computations by hand.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this short tutorial I will explain how to computer Discrete Fourier Transform by Example. The reason is simple. It is always easier to understand something new by actually doing, so that's what we will be doing here. &lt;/p&gt;
+&lt;p&gt;You can see a slight improvement but note that it's computationally more costly.&lt;/p&gt;
+&lt;h2&gt;Prewitt’s Operator&lt;/h2&gt;
+&lt;p&gt;Prewitt operator is similar to the Sobel operator and is used for detecting vertical and horizontal edges in images. However, unlike the Sobel, this operator does not place any emphasis on the pixels that are closer to the center of the mask. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="Prewitt" src="/images/prewitt-mask.png"&gt;&lt;/p&gt;
+&lt;p&gt;The only differance is the mask&lt;/p&gt;
+&lt;script src="https://gist.github.com/NikaTsanka/74c862540bacd1c35ab52379dec032c7.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;Result:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="dancing-spider-sobel-rgb" src="/images/dancing-spider-prewitt.png"&gt;&lt;/p&gt;
+&lt;h2&gt;Laplacian Operator&lt;/h2&gt;
+&lt;p&gt;Laplacian is somewhat different from the methods we have discussed so far.
+Unlike the Sobel and Prewitt’s edge detectors, the Laplacian edge detector uses only one kernel. It calculates second order derivatives in a single pass. Two commonly used small kernels are:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="laplacian-mask" src="/images/lap_mask-2.png"&gt;&lt;/p&gt;
+&lt;p&gt;Because these masks are approximating a second derivative measurement on the image, they are very sensitive to noise. To correct this, the image is often Gaussian smoothed before applying the Laplacian filter.&lt;/p&gt;
+&lt;p&gt;We can also convolve gaussian mask with the Laplacian mask and apply to the image in one pass. I will explain how to convolve one kernel with another in a separate tutorial. However, we will be applying them separately in the following example. To make things easier we will be using OpenCV.&lt;/p&gt;
+&lt;script src="https://gist.github.com/NikaTsanka/496425bc19eb9db2f8ffc665754fea1d.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;Results:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="shapes-lap" src="/images/dancing-spider-lap.png"&gt; &lt;/p&gt;
+&lt;h2&gt;Canny Operator&lt;/h2&gt;
+&lt;p&gt;Canny edge detector is probably the most commonly used and most effective method, it can have it's own tutorial, because it's much more complex edge detecting method then the ones described above. However, I will try to make it short and easy to understand. &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Smooth the image with a Gaussian filter to reduce noise.&lt;/li&gt;
+&lt;li&gt;Compute gradient of using any of the gradient operators Sobel or Prewitt.&lt;/li&gt;
+&lt;li&gt;Extract edge points: Non-maximum suppression.&lt;/li&gt;
+&lt;li&gt;Linking and thresholding: Hysteresis &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;First two steps are very straight forward, note that in the second step we are also computing the orientation of gradients "theta = arctan(Gy / Gx)" Gy and Gx are gradient x direction and y direction respectively. &lt;/p&gt;
+&lt;p&gt;Now let's talk about Non-maximum suppression and what it does. In this step we are trying to relate the edge direction to a direction that can be traced along the edges based on the previously calculated gradient strengths and edge directions. At each pixel location we have four possible directions. We check all directions if the gradient is maximum at this point. Perpendicular pixel values are compared with the value in the edge direction. If their value is lower than the pixel on the edge then they are suppressed.
+After this step we will get broken thin edges that needs to be fixed, so let's move on to the next step.&lt;/p&gt;
+&lt;p&gt;Hysteresis is a way of linking the broken lines produced in the previous step. This is done by iterating over the pixels and checking if the current pixel is an edge. If it's an edge then check surrounding area for edges. If they have the same direction then we mark them as an edge pixel. We also use 2 thresholds, a high and low. If the pixels is greater than lower threshold it is marked as an edge. Then pixels that are greater than the lower throrshold and also are greater than high threshold, are also selected as strong edge pixels. When there are no more changes to the image we stop. &lt;/p&gt;
+&lt;p&gt;Now let's looked the code:&lt;/p&gt;
+&lt;script src="https://gist.github.com/NikaTsanka/ffbf8cd4ca3b5fe8ce3822e033c5ca43.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;Results:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="shapes-lap" src="/images/dancing-spider-canny.png"&gt; &lt;/p&gt;
+&lt;p&gt;If you have any questions or I messed up somewhere, please emails me at nikatsanka@gmail.com&lt;/p&gt;</content></entry><entry><title>Fourier Transform by Example</title><link href="https://nikatsanka.github.io/fourier-transform-by-example.html" rel="alternate"></link><published>2017-06-12T00:00:00-04:00</published><updated>2017-06-12T00:00:00-04:00</updated><author><name>Nika Tsankashvili</name></author><id>tag:nikatsanka.github.io,2017-06-12:/fourier-transform-by-example.html</id><summary type="html">&lt;p&gt;Short tutorial explaining how to computer Discrete Fourier Transform by doing all the computations by hand.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this short tutorial I will explain how to computer Discrete Fourier Transform by Example. The reason is simple. It is always easier to understand something new by actually doing, so that's what we will be doing here. &lt;/p&gt;
 &lt;p&gt;I will be using image transformations as an example. So let's jump into it. &lt;/p&gt;
 &lt;p&gt;I'm not going to go into much details of what Fourier transform is but rather focus more on actual examples. Here is a really good place to start &lt;a href="https://www.youtube.com/watch?v=mkGsMWi_j4Q"&gt;Discrete Fourier Transform - Simple Step by Step&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;We know that Discrete Fourier Transform (DFT) goes from spatial(time) domain to frequency domain and vice versa. Going from spatial domain to frequency domain is called forward DFT and going from the frequency domain to spatial domain is called inverse DFT.&lt;/p&gt;

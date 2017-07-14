@@ -41,7 +41,7 @@
 <div class="ui text container center aligned article-top">
     <h1 class="ui header article-large">Comparing Edge Detection Methods</h1>
 </div>
-<div class="ui justified container piled segment">
+<div class="ui justified container raised segment">
             <p>Have you ever wondered which edge detection methods are best for given images? Yeah? So am I, so let's compare them.</p>
 <p>We will be implementing some of the most commonly used methods and also using methods from OpenCV and PIL</p>
 <p>We will be comparing the following methods:</p>
@@ -67,6 +67,42 @@
 <p><img alt="dancing-spider-sobel" src="/images/dancing-spider-sobel.png"> 
 <img alt="dancing-spider-sobel-rgb" src="/images/dancing-spider-sobel-rgb.png"> </p>
 <p>You can see a slight improvement but note that it's computationally more costly.</p>
+<h2>Prewitt’s Operator</h2>
+<p>Prewitt operator is similar to the Sobel operator and is used for detecting vertical and horizontal edges in images. However, unlike the Sobel, this operator does not place any emphasis on the pixels that are closer to the center of the mask. </p>
+<p><img alt="Prewitt" src="/images/prewitt-mask.png"></p>
+<p>The only differance is the mask</p>
+<script src="https://gist.github.com/NikaTsanka/74c862540bacd1c35ab52379dec032c7.js"></script>
+
+<p>Result:</p>
+<p><img alt="dancing-spider-sobel-rgb" src="/images/dancing-spider-prewitt.png"></p>
+<h2>Laplacian Operator</h2>
+<p>Laplacian is somewhat different from the methods we have discussed so far.
+Unlike the Sobel and Prewitt’s edge detectors, the Laplacian edge detector uses only one kernel. It calculates second order derivatives in a single pass. Two commonly used small kernels are:</p>
+<p><img alt="laplacian-mask" src="/images/lap_mask-2.png"></p>
+<p>Because these masks are approximating a second derivative measurement on the image, they are very sensitive to noise. To correct this, the image is often Gaussian smoothed before applying the Laplacian filter.</p>
+<p>We can also convolve gaussian mask with the Laplacian mask and apply to the image in one pass. I will explain how to convolve one kernel with another in a separate tutorial. However, we will be applying them separately in the following example. To make things easier we will be using OpenCV.</p>
+<script src="https://gist.github.com/NikaTsanka/496425bc19eb9db2f8ffc665754fea1d.js"></script>
+
+<p>Results:</p>
+<p><img alt="shapes-lap" src="/images/dancing-spider-lap.png"> </p>
+<h2>Canny Operator</h2>
+<p>Canny edge detector is probably the most commonly used and most effective method, it can have it's own tutorial, because it's much more complex edge detecting method then the ones described above. However, I will try to make it short and easy to understand. </p>
+<ol>
+<li>Smooth the image with a Gaussian filter to reduce noise.</li>
+<li>Compute gradient of using any of the gradient operators Sobel or Prewitt.</li>
+<li>Extract edge points: Non-maximum suppression.</li>
+<li>Linking and thresholding: Hysteresis </li>
+</ol>
+<p>First two steps are very straight forward, note that in the second step we are also computing the orientation of gradients "theta = arctan(Gy / Gx)" Gy and Gx are gradient x direction and y direction respectively. </p>
+<p>Now let's talk about Non-maximum suppression and what it does. In this step we are trying to relate the edge direction to a direction that can be traced along the edges based on the previously calculated gradient strengths and edge directions. At each pixel location we have four possible directions. We check all directions if the gradient is maximum at this point. Perpendicular pixel values are compared with the value in the edge direction. If their value is lower than the pixel on the edge then they are suppressed.
+After this step we will get broken thin edges that needs to be fixed, so let's move on to the next step.</p>
+<p>Hysteresis is a way of linking the broken lines produced in the previous step. This is done by iterating over the pixels and checking if the current pixel is an edge. If it's an edge then check surrounding area for edges. If they have the same direction then we mark them as an edge pixel. We also use 2 thresholds, a high and low. If the pixels is greater than lower threshold it is marked as an edge. Then pixels that are greater than the lower throrshold and also are greater than high threshold, are also selected as strong edge pixels. When there are no more changes to the image we stop. </p>
+<p>Now let's looked the code:</p>
+<script src="https://gist.github.com/NikaTsanka/ffbf8cd4ca3b5fe8ce3822e033c5ca43.js"></script>
+
+<p>Results:</p>
+<p><img alt="shapes-lap" src="/images/dancing-spider-canny.png"> </p>
+<p>If you have any questions or I messed up somewhere, please emails me at nikatsanka@gmail.com</p>
 </div>
 
     <!-- <div class="ui inverted vertical footer segment">

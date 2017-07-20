@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Standard Meta -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <!-- Site Properities -->
+    <title>Fourier Transforms by Example: Part 2 (FFT)</title>
+
+    <meta name="description" content="">
+
+    <meta property="og:site_name" content="GammaCode" />
+    <meta property="og:locale" content="en" />
+
+<meta property="og:title" content="Fourier Transforms by Example: Part 2 (FFT)" />
+<meta property="og:url" content="fourier-transforms-by-example-part-2-fft.html"/>
+<meta property="og:description" content=" " />
+<meta property="og:type" content="article" />
+<meta property="og:author" content="Nika Tsankashvili" />
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GammaCode">
+    <meta name="twitter:description" content="">
+    <!--meta name="twitter:image" content=""-->
+
+    <link rel="stylesheet" type="text/css" href="https://nikatsanka.github.io/theme/css/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="https://nikatsanka.github.io/theme/css/custom.css">
+</head>
+<body>
+<div class="ui borderless fixed stackable main menu">
+    <div class="ui text container">
+        <a href="/" class="header item">
+            <!--             <img class="logo" src="https://nikatsanka.github.io/theme/images/logo.png">
+-->
+            GammaCode
+        </a>
+        <a href="/pages/about.html" class="item">About</a>
+    </div>
+</div>
+<div class="ui text container center aligned article-top">
+    <h1 class="ui header article-large">Fourier Transforms by Example: Part 2 (FFT)</h1>
+</div>
+<div class="ui justified container raised segment">
+            <p>In the part 1 of Fourier Transforms by Example we showed how to compute Discrete Fourier Transform which is fairly easy to do, however there is a better and smarter way of computing Fourier Transforms using Fast Fourier Transform (FFT), just a faster algorithm, which is the method used in real world applications. </p>
+<p>Again here we aren't going to get into the details on how FFT works, for that here is a really nice explanation <a href="https://www.youtube.com/watch?v=EsJGuI7e_ZQ">The Fast Fourier Transform Algorithm</a>, but it's worth noting how much better it performs over DFT. So, DFT is about θ(n^2) and FFT is about θ(n log n), which is a significant improvement. Keep in mind that this is one of the FFT varients. </p>
+<p>Now let's consider the same number list as in part one. 36, 22, 45, 15. One thing we have to remember is that the number of elements has to be a power of 2, and why is that we will see shortly.</p>
+<p>As you already know DFT is:</p>
+<p><img alt="DFT" src="/images/d-fourier-f.jpg"></p>
+<p>Now let's re-write this: The basic idea is to break up a transform of length  N into two transforms of length N/2 using the identity.</p>
+<p><img alt="FFT" src="/images/fft.png"></p>
+<p>First we group the elements according to even and odd positions, until we are down to a single element. Then when we combine the even and odd indexes. If you don't know what we are doing, watch this <a href="https://www.youtube.com/watch?v=EsJGuI7e_ZQ">The Fast Fourier Transform Algorithm</a></p>
+<p>Now we can start the butterfly computation </p>
+<p><img alt="FFT-HAND" src="/images/fft-hand.png"></p>
+<p>Eplaination:</p>
+<p>Steps 1, 2 and 3 are self-explanatory, we are simply regrouping the numbers. Step 4, we take an even and an odd element and start the butterfly computation. At this point we only have 2 elements, thus we have N = 2. We can make things easier if we precomputed weights. Weights are the exponent values that are derived from a unit circle. You can see the pre-computed weights on top. When N = 2, 0th weight will always be 1, so we the same number. Step 5, here N = 4 and when n = 1 we get -i. In the last step we simply divide the results derived in step 5 by N which is 4. And we get the same results as in Part 1 of <a href="https://nikatsanka.github.io/fourier-transforms-by-example-part-1-dft.html">Fourier Transforms by Example</a> but with far less computation.</p>
+</div>
+
+    <!-- <div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+        
+        <div class="ui horizontal inverted small divided link list">
+        </div>
+    </div>
+</div>
+ -->
+    <script type="text/javascript" src="https://nikatsanka.github.io/theme/js/jquery.min.js"></script>
+    <script type="text/javascript" src="https://nikatsanka.github.io/theme/js/semantic.min.js"></script>
+    <!---->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/sharer.js/0.2.4/sharer.min.js"></script>
+</body>
+</html>

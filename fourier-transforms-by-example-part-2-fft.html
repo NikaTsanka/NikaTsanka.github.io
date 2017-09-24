@@ -48,12 +48,15 @@
 <p>As you already know DFT is:</p>
 <p><img alt="DFT" src="/images/d-fourier-f.jpg"></p>
 <p>Now let's re-write this: The basic idea is to break up a transform of length  N into two transforms of length N/2 using the identity.</p>
+<h3>Forward FFT</h3>
 <p><img alt="FFT" src="/images/fft.png"></p>
 <p>First we group the elements according to even and odd positions, until we are down to a single element. Then when we combine the even and odd indexes. If you don't know what we are doing, watch this <a href="https://www.youtube.com/watch?v=EsJGuI7e_ZQ">The Fast Fourier Transform Algorithm</a></p>
 <p>Now we can start the butterfly computation </p>
 <p><img alt="FFT-HAND" src="/images/fft-hand.png"></p>
 <p>Eplaination:</p>
-<p>Steps 1, 2 and 3 are self-explanatory, we are simply regrouping the numbers. Step 4, we take an even and an odd element and start the butterfly computation. At this point we only have 2 elements, thus we have N = 2. We can make things easier if we precomputed weights. Weights are the exponent values that are derived from a unit circle. You can see the pre-computed weights on top. When N = 2, 0th weight will always be 1, so we the same number. Step 5, here N = 4 and when n = 1 we get -i. In the last step we simply divide the results derived in step 5 by N which is 4. And we get the same results as in Part 1 of <a href="https://nikatsanka.github.io/fourier-transforms-by-example-part-1-dft.html">Fourier Transforms by Example</a> but with far less computation.</p>
+<p>Steps 1, 2 and 3 are self-explanatory, we are simply regrouping the numbers. Step 4, we take an even and an odd element and start the butterfly computation. At this point we only have 2 elements, thus we have N = 2. We can make things easier if we precomputed weights. Weights are the exponent values that are derived from a unit circle. You can see the pre-computed weights on top. When N = 2, 0th weight will always be 1, so we the same number. Step 5, here N = 4 and when n = 1 we get -i. In the last step we simply divide the results derived in step 5 by N which is 4. And we get the same results as in Part 1 of <a href="https://nikatsanka.github.io/fourier-transforms-by-example-part-1-dft.html">Fourier Transforms by Example</a> but with far less computation.\</p>
+<p>Now let's go back. </p>
+<h3>Inverse FFT</h3>
 </div>
 
     <!-- <div class="ui inverted vertical footer segment">

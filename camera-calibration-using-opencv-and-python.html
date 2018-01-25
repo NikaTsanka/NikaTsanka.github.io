@@ -42,8 +42,56 @@
     <h1 class="ui header article-large">Camera Calibration Using OpenCV and Python</h1>
 </div>
 <div class="ui justified container raised segment">
-            <p>There seems to be a lot of confusing on camera calibration in OpenCV, there is an official totorial on how to calibrate a camera, <a href="http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_calib3d/py_calibration/py_calibration.html">(Camera Calibration)</a> which doesn't seem to work. </p>
-<p>Here is a working version of Camera Calibration based on the offical tutotial. </p>
+            <p>There seems to be a lot of confusing on camera calibration in OpenCV, there is an official tutorial on how to calibrate a camera, <a href="http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_calib3d/py_calibration/py_calibration.html">(Camera Calibration)</a> which doesn't seem to work for many people. </p>
+<p>Here is a working version of Camera Calibration based on the official tutorial.</p>
+<h2>Install Necessary Libraries:</h2>
+<ul>
+<li>Numpy</li>
+<li>OpenCV</li>
+<li>Glob</li>
+<li>Yaml</li>
+</ul>
+<p>These libraries can be easily installed using pip package manager.</p>
+<h2>Download Calibration Pattern</h2>
+<p>The default chessboard calibration pattern doesn't seem to work. So here is little bit different one for which we will have to change some parameters to make it work.</p>
+<p><img alt="8X8" src="/images/pattern-8x8-small-x200.png"></p>
+<p><a href="/images/pattern-8x8.png">Download Full Resolution</a></p>
+<h2>Print The Pattern</h2>
+<p>Print the chessboard 8x8 pattern, attach it to a flat surface and take a lot of pictures of the pattern from different angels and distances like these:</p>
+<p><img alt="1" src="/images/IMG_20170515_194654x200.jpg"> <img alt="2" src="/images/IMG_20170515_194701x200.jpg"> <img alt="3" src="/images/IMG_20170515_194711x200.jpg"></p>
+<h2>Change Parameters</h2>
+<p>I'm not get into the details what these variables do, for that you can read the full tutorial on the official website. </p>
+<p>Change:
+Line 10: <em>objp = np.zeros((7*7,3), np.float32)</em></p>
+<p>Line 11: <em>objp[:,:2] = np.mgrid[0:7,0:7].T.reshape(-1,2)</em></p>
+<p>Line 28: <em>ret, corners = cv2.findChessboardCorners(gray, (7,7), None)</em></p>
+<p>Line 35: <em>img = cv2.drawChessboardCorners(img, (7,7), corners2, ret)</em></p>
+<p>And that's it. Here is the full code: </p>
+<script src="https://gist.github.com/NikaTsanka/af42eec7573a440926b0b9d9a5049a2a.js"></script>
+
+<p>Results:</p>
+<p><img alt="1" src="/images/calibresult1x300.png"> <img alt="2" src="/images/calibresult2x300.png"></p>
+<h2>Run The Script</h2>
+<p>You will end up with a file called <strong>calibration_matrix.yaml</strong> that will contain the calibration matrix and distortion coefficients.</p>
+<blockquote>
+<p>camera_matrix:</p>
+<ul>
+<li>
+<p>[935.1344941116828, 0.0, 639.5005137221706]</p>
+</li>
+<li>
+<p>[0.0, 931.4115487638016, 338.0236559548098]</p>
+</li>
+<li>
+<p>[0.0, 0.0, 1.0]</p>
+</li>
+</ul>
+<p>dist_coeff:</p>
+<ul>
+<li>[0.13770456510420725, -0.9787743886214878, -0.011250061708974173, 0.0018853619055972332, 1.358881887579156]</li>
+</ul>
+</blockquote>
+<p>And that's it. Now you can use the matrix to calibrate your camera.</p>
 </div>
 
     <!-- <div class="ui inverted vertical footer segment">
